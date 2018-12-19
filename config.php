@@ -81,7 +81,7 @@ function insertMusique($musique) {
 
 
 
-####################################  [ select All Personnes ] ###################################################
+####################################  [ select All Personnes ] ##################################################
 public function selectAllPersonnes() {
 
       $requete_prepare = $this->connexion->prepare(
@@ -132,7 +132,7 @@ public function selectPersonneById($id) {
 }
  
 
- ####################################[ get Personne Hobby ]#######################################################
+ ####################################[ get Personne Hobby ]######################################################
 
 function getPersonneHobby($personneId) {
 
@@ -169,7 +169,7 @@ function getPersonneMusique($personneId) {
 
 
  
-####################################  [ get Relation Personne ] ###################################################
+####################################  [ get Relation Personne ] #################################################
         function getRelationPersonne ($personneId) {
          
            $requete_prepare = $this->connexion->prepare(
@@ -185,7 +185,7 @@ function getPersonneMusique($personneId) {
             return $personne;
         }    
 
-####################################  [ select Personne By Nom Prenom ] ###########################################
+####################################[ select Personne By Nom Prenom ]#########################################
 
         function selectPersonneByNomPrenomLike($pattern){
          
@@ -203,7 +203,7 @@ function getPersonneMusique($personneId) {
 
         }
 
-###############################[ insert Personne  ] #############################################################
+###############################[ insert Personne  ]#############################################################
 function insertPersonne($nom, $prenom, $url_photo, $date_naissance, $statut_couple) {
            
         $requete_prepare = $this->connexion -> prepare(
@@ -215,7 +215,7 @@ function insertPersonne($nom, $prenom, $url_photo, $date_naissance, $statut_coup
                     'url_photo' => $url_photo,
                     'date_naissance' => $date_naissance,
                     'statut_couple' => $statut_couple));    
-            $id = $connexion->LAST_INSERT_ID();
+            $last_id = $connexion->LAST_INSERT_ID();
             
 
          return $id;
@@ -295,6 +295,20 @@ function insertPersonne($nom, $prenom, $url_photo, $date_naissance, $statut_coup
 
             return $hobbyId;  
 
+    }
+
+
+##############################################[ Get Hobby By ID ]########################################
+
+    function getMusiqueId($musique) {
+     
+      $requete_prepare = $this->connexion -> prepare(
+          "SELECT * FROM Musique WHERE Type = :musique");
+      $requete_prepare -> execute(array('musique' => $musique));    
+
+        $musiqueId=$requete_prepare->fetch(PDO::FETCH_OBJ);
+
+            return $musiqueId;  
 
     }
 

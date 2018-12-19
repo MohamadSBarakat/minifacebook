@@ -66,10 +66,10 @@ table{
 .Contacts{
 	vertical-align: center;
 	margin:0 auto;
-	font-size: 15px;
+	font-size: 18px;
 	width:70%;
-	
-	border: 1px solid grey;
+	background-color:#efdeee; 
+	border: 2px solid grey;
 
 }
 .Contacts p{
@@ -77,6 +77,7 @@ table{
 	text-align: center;
 	color:Black;
 	padding:1px;
+
 
 }
 .listeContacts{
@@ -245,7 +246,11 @@ table{
 	font-size:25px;
 }
 
-
+div.relation_Scroll{
+	width: 760px;
+    height: 380px;
+	overflow: Scroll;
+}
 
 .formulaireRecherche {
  	display:inline-block;

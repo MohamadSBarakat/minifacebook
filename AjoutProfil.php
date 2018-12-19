@@ -15,18 +15,7 @@
 
 <body>
 
-		<?php $id = 23;
-        if(isset($_POST['submit'])){
-            if(!empty($_POST['hobbies'])) {
-
-                foreach($_POST['hobbies'] as $selected) {
-
-                    $appliBD->getHobbyId($selected);
-
-                    $appliBD->insertPersonneHobbies($id, $hobby_Id);
-                    }}} ?>
-	 
-
+		 
 	<!-- barre continu en-tête avec les liens -->
 	<div id="top_head">
 		<a href="listeContact.php" >
@@ -40,7 +29,7 @@
 		<h1>Ajouter un contact</h1>
 
 	<!--	<form method="get" action="annuaireProfil.php?id=$personnes->ID" >  -->
-			<form method="POST" type="submit"  action="AjoutProfil.php?id=$personnes->ID" >
+			<form method="POST"    action="AjoutProfil.php" >
 		<table>
 			<tr>
 				<td>URL Photo :</td>
@@ -72,35 +61,71 @@
 	<tr>
  		<td>Hobbies :</td>
 		<td class="textAlignRight">
-			<?php  $allHobbies = $appliBD->selectAllHobbies();
-			        foreach ($allHobbies as  $hobb) {
-					echo  '<input type="checkbox" name="hobbies[]" value="">' . $hobb->Type;
-					 } 
-				?>			
-				 
+			<?php  $allHobbies = $appliBD->selectAllHobbies();?>
+			<input type="checkbox" name="hobbies[]" value=<?php echo $allHobbies[0]->Type?>><?php echo $allHobbies[0]->Type?> 
+			<input type="checkbox" name="hobbies[]" value=<?php echo $allHobbies[1]->Type?>><?php echo $allHobbies[1]->Type?>
+			<input type="checkbox" name="hobbies[]" value=<?php echo $allHobbies[2]->Type?>><?php echo $allHobbies[2]->Type?>
+			<input type="checkbox" name="hobbies[]" value=<?php echo $allHobbies[3]->Type?>><?php echo $allHobbies[3]->Type?>
+			<input type="checkbox" name="hobbies[]" value=<?php echo $allHobbies[4]->Type?>><?php echo $allHobbies[4]->Type?>
+			       
+			        <!--  foreach ($allHobbies as  $hobb) {  
+					//echo  "<label><input type=\"checkbox\" name=\"hobbies[]\" value=\"$hobb->Type\">$hobb->Type</label>";
+					// } -->
+									 
 				</td>
 			</tr>
-			<tr>
-				<td>Musique :</td>
-				<td class="textAlignRight">
-					<?php  $allMusiques = $appliBD->selectAllMusiques();
-			        foreach ($allMusiques as  $musique) {
-					echo '<input type="checkbox" name="musiques[]" value="">' . $musique->Type;
-					 } 
-					?>	
+		<tr>
+			<td>Musique :</td>
+			<td class="textAlignRight">
+
+			<?php  $allMusiques = $appliBD->selectAllMusiques();?>	
+			<input type="checkbox" name="musiques[]" value=<?php echo $allMusiques[0]->Type?>><?php echo $allMusiques[0]->Type?>
+			<input type="checkbox" name="musiques[]" value=<?php echo $allMusiques[1]->Type?>><?php echo $allMusiques[1]->Type?>
+			<input type="checkbox" name="musiques[]" value=<?php echo $allMusiques[2]->Type?>><?php echo $allMusiques[2]->Type?>
+			<input type="checkbox" name="musiques[]" value=<?php echo $allMusiques[3]->Type?>><?php echo $allMusiques[3]->Type?>
+			<input type="checkbox" name="musiques[]" value=<?php echo $allMusiques[4]->Type?>><?php echo $allMusiques[4]->Type?>	
+			    <!--    foreach ($allMusiques as  $musique) {
+					echo "<input type=\"checkbox\" name=\"musiques[]\" value=\"$musique->Type>" . $musique->Type;
+					 } -->
+					
 				 
 				</td>
 	</tr>
    
 			<tr>
 				<td class="boutonCentrer" colspan="2">
-					<input type="submit" value="Ajouter le contact">
+					<input type="submit"  name="submit" value="Ajouter le contact">
 				</td>
 			</tr>
 
 		</table>
-				
-			<div class="Contacts clair">
+			<?php
+			$AllPersonnes    = $appliBD->selectAllPersonnes(); 													
+      		foreach ($AllPersonnes  as  $personnes) {
+				/*echo	"<div class=relation_Scroll>";*/			
+			  	echo	"<div class=Contacts>"; 
+				echo		"<img class=imageContact src=$personnes->URL_Photo>"; 
+				echo		"<p>" . $personnes->Prenom . '  ' . $personnes->Nom	. "</p>"; 
+				 echo		"<p>";
+				echo		"<select name=\"$personnes->ID\">";
+				echo		"<option value=\"Non defini\">Non defini</option>";
+				echo		"<option value=\"En couple\">Famille</option>";
+				echo		"<option value=\"Celibataire\">Collegue</option>";
+				echo		"<option value=\"Non defini\">Ami</option>";
+				 
+				echo		"</select>";
+				echo		"</p>";
+				/*echo	"</div>"; */
+				 
+				echo	"</div>"; 
+	        }		
+			//mecho	"</div>"; 
+			?>
+
+			 
+			 
+
+			<div class="Contacts">
 				<img class="imageContact" src="imgs/avatar_defaut.png"> 
 				<p>
 					JEAN-PHILLIPE DE MARINIAQUE - CELIBATAIRE
@@ -113,41 +138,36 @@
 			</div>
 
 
-			<div class="Contacts fonce">
-				<img class="imageContact" src="imgs/avatar_defaut.png"> 
-				<p>
-					JEAN-PHILLIPE DE MARINIAQUE - CELIBATAIRE
-				</p> 
-				<p>
-					<input type="checkbox" name="Famille">Famille
-					<input type="checkbox" name="Collegue">Collegue
-					<input type="checkbox" name="Ami">Ami
-				</p>
-			</div>
+ 		<?php $id = 32;
+                  
+        if(isset($_POST['submit'])){
+		/*	if(!empty($_POST['hobbies'])) {			 
+            foreach($_POST['hobbies'] as $selected) {
+		 		echo "<p>".$selected ."</p>";
+            	$hobbyId =  $appliBD->getHobbyId($selected);       
+            	$hID     = $hobbyId->ID;
+            	$appliBD->insertPersonneHobbies($id, $hID);
+					
+				}	 
+            }
+		*/	
+        if(!empty($_POST['musiques'])) {			 
+            foreach($_POST['musiques'] as $selected) {
+		 		echo "<p>".$selected ."</p>";
+            	$musiqueId =  $appliBD->getMusiqueId($selected);       
+            	$mID     = $musiqueId->ID;
+            	$appliBD->insertPersonneMusiques($id, $mID);
+					
+				}	 
+            }
 
-			<div class="Contacts fonce">
-				<img class="imageContact" src="imgs/avatar_defaut.png"> 
-				<p>
-					JEAN-PHILLIPE DE MARINIAQUE - CELIBATAIRE
-				</p> 
-				<p>
-					<input type="checkbox" name="Famille">Famille
-					<input type="checkbox" name="Collegue">Collegue
-					<input type="checkbox" name="Ami">Ami
-				</p>
-			</div>
 
-			<div class="Contacts fonce">
-				<img class="imageContact" src="imgs/avatar_defaut.png"> 
-				<p>
-					JEAN-PHILLIPE DE MARINIAQUE - CELIBATAIRE
-				</p> 
-				<p>
-					<input type="checkbox" name="Famille">Famille
-					<input type="checkbox" name="Collegue">Collegue
-					<input type="checkbox" name="Ami">Ami
-				</p>
-			</div>
+
+        }
+    	?>
+         
+
+
 
 		</form>
 
