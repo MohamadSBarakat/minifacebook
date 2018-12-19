@@ -8,63 +8,79 @@
 	 <link href="style2.css" rel="stylesheet">
 	 <title>Annuaire - Ajouter un contact</title>
 	 <?php  require('config.php'); ?> 
-	 <?php  $appliBD = new Connexion(); ?> 
+	 <?php  $appliDB = new Connexion(); ?> 
 	 		   
 </head>
 
-<body>
+	<body>
 
+		<?php
+		if ($_POST)
+		{
+  	    	$hobbysId=$_POST['hobbies'];
+    		$musiquesId=$_POST['musiques'];
+    		$relationType=$_POST['relation'];
+ 
+    		$appliDB->insertPersonne($_POST["nom"], $_POST["Prenom"],
+     		$_POST["photoProfil"], $_POST["dateNaissance"], $_POST["status"]);
+    		$personne_id=$appliDB->getLastId();
+      
+    		foreach($hobbysId as $hobby){
+    			$hobbyId =  $appliDB->getHobbyId($hobby);
+    			$hID     = $hobbyId->ID;
+        		$appliDB->insertPersonneHobbies($personne_id, $hID);
+    		}
 
-    <!-- <?php  $appliBD->####insertPersonne($_POST["nom"], $_POST["Prenom"],
-		 $_POST#######["photoProfil"], $_POST["dateNaissance"], $_POST["status"]); ?>  -->
-
-
-	<!-- barre continu en-tête avec les liens -->
+    		foreach($musiquesId as $musique){
+    			$musiqueId =  $appliDB->getMusiqueId($musique);
+    			$mID     = $musiqueId->ID;
+        		$appliDB->insertPersonneMusiques($personne_id, $mID );
+    		} 
+    
+    		foreach($relationType as $relation_id => $rt){
+      			if ($rt !== ' ')
+      			{
+      				$appliDB->insertPersonneRelation($personne_id,$relation_id,$rt);
+      			}  
+   	   	    }
+		} 
+		else { $personne_id = $_GET["id"];
+	   
+	    }
+    	?>
+	
 	<div id="top_head">
-		<a href="listeContact.php">
-			<div class="droite">
-				Liste des profils
-			</div>
-		</a>
-		<a href="AjoutProfil.php">
-			<div class="droite">
-				Ajouter un profil
-			</div>
-		</a>
+		<a href="listeContact.php">	<div class="droite">Liste des profils</div></a>
+		<a href="AjoutProfil.php">	<div class="droite">Ajouter un profil</div></a>
 	</div>
-	<!-- Div contenant le titre de la page ainsi que le formulaire d'ajout d'un nouveau contact et la list des contacts en dessous-->
-	 
+	
 	<div id="Contenu">
 				
             <div id = "profil-header">
                <div id = "profil-data">
-               		<?php $getPersonneById = $appliBD->selectPersonneById($_GET["id"]); ?>
-	                <?php echo "<img class=img_profil src=$getPersonneById->URL_Photo alt=Photo de profil width=120 height=120>" ?>
+               	     
+               		<?php $getPersonneById = $appliDB->selectPersonneById($personne_id); ?>
+	                <?php echo "<img class=img_profil src=\"$getPersonneById->URL_Photo\" alt=Photo de profil width=120 height=120>" ?>
 	                <p><?php echo $getPersonneById->Prenom . '  ' . $getPersonneById->Nom;?></p>
 	                <p><?php echo $getPersonneById->Date_Naissance; ?></p>
 	                <p><?php echo $getPersonneById->Statut_couple;?></p> 
 				</div>    
-
             </div>
 
-            <div id = "activite">  
-                <h2>Activité</h2>
+            <div id = "activite">  <h2>Activité</h2>
                  
-                <div id="contenu_musique">
-                        <h4>Musique</h4>
+                <div id="contenu_musique">   <h4>Musique</h4>
                 
                 <div  id="musique">	
                        
- 
-				<?php
-				$personneMusique = $appliBD->getPersonneMusique($_GET["id"]);
-	            echo   "<ul>";
-	            foreach ($personneMusique  as  $musiques) {
-                 echo "<li>" . $musiques->Type . "</li>";         
-                }        
-                echo    "</ul>";
-                ?>
-
+ 					<?php
+					$personneMusique = $appliDB->getPersonneMusique($personne_id);
+	            		echo   "<ul>";
+	            			foreach ($personneMusique  as  $musiques) {
+                				 echo "<li>" . $musiques->Type . "</li>";         
+                			}        
+                		echo    "</ul>";
+                	?>
                 </div>
                 </div> 
                 
@@ -73,25 +89,22 @@
 
                 <div id = "hoppies">
                         
- 				<?php
-				$personneHobby = $appliBD->getPersonneHobby($_GET["id"]);
-                echo    "<ul>";
-	                foreach ($personneHobby  as  $hobbies) {
-		                echo "<li>" . $hobbies->Type . "</li>";	
-		                }                
+ 					<?php
+					$personneHobby = $appliDB->getPersonneHobby($personne_id);
+                		echo    "<ul>";
+	                		foreach ($personneHobby  as  $hobbies) {
+		               			 echo   "<li>" . $hobbies->Type . "</li>";	
+		             	    }                
 		                echo    "</ul>";
-                ?>
+               		?>
                 </div>
-            </div>
-
-            </div>
+          	    </div>
+                </div>
 
             <div id = "contact">
             	<h2>Relation</h2>
-
-
     			<?php	
-    			$relationPersonne = $appliBD->getRelationPersonne($_GET["id"]);
+    			$relationPersonne = $appliDB->getRelationPersonne($personne_id);
                 foreach ($relationPersonne  as  $relation) {
 	                echo "<div class=listeContactsRelation >";
 					echo "	<img class=imageContact src=$relation->URL_Photo> ";

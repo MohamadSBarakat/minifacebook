@@ -8,11 +8,8 @@
 		 <link href="style2.css" rel="stylesheet">
 		 <title>Annuaire - Ajouter un contact</title>
 		 <?php  require('config.php'); ?> 
-		 <?php  $appliBD = new Connexion(); ?> 
-		 <?php // $getPersonneById = $appliBD->selectPersonneById($_GET["id"]) ?> 
-		
-		 <?php   ?>
-  
+		 <?php  $appliDB = new Connexion(); ?> 
+				 
 	</head>
 
 	<body>
@@ -34,30 +31,29 @@
 	                     
 	        </form>
 
-	<?php
+		<?php
 
-		if (!($_GET)) {
-			$AllPersonnes    = $appliBD->selectAllPersonnes(); 													
-      		foreach ($AllPersonnes  as  $personnes) {
+			if (!($_GET)) {
+				$AllPersonnes = $appliDB->selectAllPersonnes(); 													
+      			foreach ($AllPersonnes  as  $personnes) {
 				echo	"<div>";			
 				echo	"<a href=annuaireProfil.php?id=$personnes->ID>";
 				echo	"<div class=listeContacts>"; 
-				echo		"<img class=imageContact src=$personnes->URL_Photo>"; 
+				echo		"<img class=\"imageContact\" src=\"$personnes->URL_Photo\">"; 
 				echo		"<p>" . $personnes->Prenom . '  ' . $personnes->Nom	. "</p>"; 
 				echo		"<p>";
 				echo			$personnes->Statut_couple;
 				echo		"</p>";
 				echo	"</div>"; 
 	        }		
-			echo	"</div>"; 
-			echo	"</a>";
+				echo	"</div>"; 
+				echo	"</a>";
 	    
-	    }
+	   		 }
 
-		elseif(isset($_GET)) {
-			$resultatP = $appliBD->selectPersonneByNomPrenomLike($_GET["cherchNom"]);
-			foreach ($resultatP  as  $personnes) {
-
+			elseif(isset($_GET)) {
+				$resultatP = $appliDB->selectPersonneByNomPrenomLike($_GET["cherchNom"]);
+				foreach ($resultatP  as  $personnes) {
 		      	echo	"<div>";			
 				echo	"<a href=annuaireProfil.php?id=$personnes->ID>";
 				echo	"<div class=listeContacts>"; 
@@ -68,16 +64,14 @@
 				echo		"</p>";
 				echo	"</div>"; 
 	        }		
-	   		echo	"</div>"; 
-			echo	"</a>";		
+	   			echo	"</div>"; 
+				echo	"</a>";		
 
-		}  
+			}  
 
-	?>
+			?>
 
+		</div>
 
-	</div>
-
-
-</body>
+	</body>
 </html>

@@ -34,10 +34,15 @@ public function getConnexion(){
     return $this->connexion;
 }
 
+##########################################[  getLastId  ]########################################################
+
+public function getLastId(){
+            return $this->connexion->lastInsertId();
+        }
 
 ##########################################[  insert Hobby  ]########################################################
     
-function insertHobby($hobby) {
+public function insertHobby($hobby) {
 
      
 
@@ -60,7 +65,7 @@ function insertHobby($hobby) {
 
 ###############################################[  insert Musique  ]#################################################
 
-function insertMusique($musique) {
+public function insertMusique($musique) {
 
    // $connexion = connexionDB();
 
@@ -79,8 +84,6 @@ function insertMusique($musique) {
     
 }   
 
-
-
 ####################################  [ select All Personnes ] ##################################################
 public function selectAllPersonnes() {
 
@@ -94,7 +97,7 @@ public function selectAllPersonnes() {
 }
 
 ####################################  [ select All Hobbies ] ###################################################
-function selectAllHobbies() {
+public function selectAllHobbies() {
 
     $requete_prepare = $this->connexion->prepare(
         "SELECT Type FROM Hobby");
@@ -106,8 +109,7 @@ function selectAllHobbies() {
 }
 
 #################################### [ select All Musiques ] ###################################################
-function selectAllMusiques() {
-
+public function selectAllMusiques() {
    
    $requete_prepare = $this->connexion->prepare(
         "SELECT Type FROM Musique");
@@ -131,10 +133,9 @@ public function selectPersonneById($id) {
 
 }
  
-
  ####################################[ get Personne Hobby ]######################################################
 
-function getPersonneHobby($personneId) {
+public function getPersonneHobby($personneId) {
 
     
    $requete_prepare = $this->connexion->prepare(
@@ -151,8 +152,7 @@ function getPersonneHobby($personneId) {
 }
 
 #################################### [ get Personne Musique ] ###################################################
-function getPersonneMusique($personneId) {
-
+public function getPersonneMusique($personneId) {
      
    $requete_prepare = $this->connexion->prepare(
         "SELECT M.Type FROM Musique M
@@ -166,11 +166,9 @@ function getPersonneMusique($personneId) {
 
     return $musiques;
 }
-
-
  
 ####################################  [ get Relation Personne ] #################################################
-        function getRelationPersonne ($personneId) {
+       public function getRelationPersonne ($personneId) {
          
            $requete_prepare = $this->connexion->prepare(
                "SELECT R.Type, P.Nom, P.Prenom, P.URL_Photo, P.Statut_couple FROM RelationPersonne R 
@@ -187,7 +185,7 @@ function getPersonneMusique($personneId) {
 
 ####################################[ select Personne By Nom Prenom ]#########################################
 
-        function selectPersonneByNomPrenomLike($pattern){
+      public  function selectPersonneByNomPrenomLike($pattern){
          
              
             $requete_prepare = $this->connexion->prepare(
@@ -214,11 +212,12 @@ function insertPersonne($nom, $prenom, $url_photo, $date_naissance, $statut_coup
                     'prenom' => $prenom,
                     'url_photo' => $url_photo,
                     'date_naissance' => $date_naissance,
-                    'statut_couple' => $statut_couple));    
-            $last_id = $connexion->LAST_INSERT_ID();
+                    'statut_couple' => $statut_couple)); 
+
+                    // getLastId();
             
 
-         return $id;
+       //  return $id;
            
  } 
 
@@ -329,7 +328,40 @@ function insertPersonne($nom, $prenom, $url_photo, $date_naissance, $statut_coup
 
 
     }
+ 
+ ##############################################[ inscription ]########################################   
+
+function inscription(){
+    $appliDB = new Connexion();
     
+    
+    $hobbysId=$_POST['hobbies'];
+    $musiquesId=$_POST['musiques'];
+    $relationType=$_POST['relation'];
+
+ 
+    $appliDB->insertPersonne($_POST["nom"], $_POST["Prenom"],
+     $_POST["photoProfil"], $_POST["dateNaissance"], $_POST["status"]);
+
+    $personne_id=$appliDB->getLastId();
+        
+     
+    foreach($hobbysId as $hobbyId){
+        $appliDB->insertPersonneHobbies($personne_id,$hobbyId->ID);
+    }
+    foreach($musiquesId as $musiqueId){
+        $appliDB->insertPersonneMusiques($personne_id,$musiqueId->ID);
+    } 
+    
+    foreach($relationType as $relation_id => $rt){
+      if ($rt !== ' ')
+      {
+      $appliDB->insertPersonneRelation($personne_id,$relation_id,$rt);
+      }  
+    }
+ }
+ 
+
 
 }
 ?>
