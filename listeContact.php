@@ -30,7 +30,7 @@
 	               <input class="boutonRecherche" type="submit"  value="Rechecher" />
 	                     
 	        </form>
-
+	        <div class=relation_Scroll>
 		<?php
 
 			if (!($_GET)) {
@@ -48,8 +48,7 @@
 	        }		
 				echo	"</div>"; 
 				echo	"</a>";
-	    
-	   		 }
+	   	        }  	
 
 			elseif(isset($_GET)) {
 				$resultatP = $appliDB->selectPersonneByNomPrenomLike($_GET["cherchNom"]);
@@ -66,11 +65,9 @@
 	        }		
 	   			echo	"</div>"; 
 				echo	"</a>";		
-
 			}  
-
 			?>
-
+			</div>
 		</div>
 
 	</body>

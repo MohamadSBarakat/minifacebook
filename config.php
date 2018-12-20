@@ -331,36 +331,36 @@ function insertPersonne($nom, $prenom, $url_photo, $date_naissance, $statut_coup
  
  ##############################################[ inscription ]########################################   
 
-function inscription(){
-    $appliDB = new Connexion();
-    
-    
-    $hobbysId=$_POST['hobbies'];
-    $musiquesId=$_POST['musiques'];
-    $relationType=$_POST['relation'];
+   public function inscription(){
 
+        $hobbysId=$_POST['hobbies'];
+        $musiquesId=$_POST['musiques'];
+        $relationType=$_POST['relation'];
  
-    $appliDB->insertPersonne($_POST["nom"], $_POST["Prenom"],
-     $_POST["photoProfil"], $_POST["dateNaissance"], $_POST["status"]);
+        $appliDB->insertPersonne($_POST["nom"], $_POST["Prenom"],
+        $_POST["photoProfil"], $_POST["dateNaissance"], $_POST["status"]);
+        $personne_id=$appliDB->getLastId();
+      
+        foreach($hobbysId as $hobby){
+          $hobbyId =  $appliDB->getHobbyId($hobby);
+          $hID     = $hobbyId->ID;
+            $appliDB->insertPersonneHobbies($personne_id, $hID);
+        }
 
-    $personne_id=$appliDB->getLastId();
-        
-     
-    foreach($hobbysId as $hobbyId){
-        $appliDB->insertPersonneHobbies($personne_id,$hobbyId->ID);
-    }
-    foreach($musiquesId as $musiqueId){
-        $appliDB->insertPersonneMusiques($personne_id,$musiqueId->ID);
-    } 
+        foreach($musiquesId as $musique){
+          $musiqueId =  $appliDB->getMusiqueId($musique);
+          $mID     = $musiqueId->ID;
+            $appliDB->insertPersonneMusiques($personne_id, $mID );
+        } 
     
-    foreach($relationType as $relation_id => $rt){
-      if ($rt !== ' ')
-      {
-      $appliDB->insertPersonneRelation($personne_id,$relation_id,$rt);
-      }  
-    }
- }
- 
+        foreach($relationType as $relation_id => $rt){
+            if ($rt !== ' ')
+            {
+              $appliDB->insertPersonneRelation($personne_id,$relation_id,$rt);
+            }  
+            }
+
+   }   
 
 
 }

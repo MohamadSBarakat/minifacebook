@@ -26,7 +26,7 @@
 	</div>
 	<!-- Div contenant le titre de la page ainsi que le formulaire d'ajout d'un nouveau contact et la list des contacts en dessous-->
 	<div id="Contenu">
-		<h1>Ajouter un contact</h1>
+		<h1>Inscription</h1>
 
 	<!--	<form method="get" action="annuaireProfil.php?id=$personnes->ID" >  -->
 			<form method="POST"    action="annuaireProfil.php" >
@@ -99,14 +99,15 @@
 			</tr>
 
 		</table>
+			<div class=relation_Scroll>		
 			<?php
 			$AllPersonnes    = $appliDB->selectAllPersonnes(); 													
       		foreach ($AllPersonnes  as  $personnes) {
-				/*echo	"<div class=relation_Scroll>";*/			
+					
 			  	echo	"<div class=Contacts>"; 
 				echo		"<img class=imageContact src=$personnes->URL_Photo>"; 
 				echo		"<p>" . $personnes->Prenom . '  ' . $personnes->Nom	. "</p>"; 
-				 echo		"<p>";
+			    echo		"<p>";
 				echo		"<select name=\"relation[$personnes->ID]\">";
 				echo		"<option value=\" \">Non defini</option>";
 				echo		"<option value=\"Famille\">Famille</option>";
@@ -119,9 +120,9 @@
 				 
 				echo	"</div>"; 
 	        }		
-			//mecho	"</div>"; 
+			
 			?>
-
+		 	</div> 
 			 
 			 			
 

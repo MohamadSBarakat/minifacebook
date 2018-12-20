@@ -17,6 +17,8 @@
 		<?php
 		if ($_POST)
 		{
+  	    		    	inscription();
+			/*
   	    	$hobbysId=$_POST['hobbies'];
     		$musiquesId=$_POST['musiques'];
     		$relationType=$_POST['relation'];
@@ -42,11 +44,13 @@
       			{
       				$appliDB->insertPersonneRelation($personne_id,$relation_id,$rt);
       			}  
-   	   	    }
+   	   	    } */
 		} 
-		else { $personne_id = $_GET["id"];
-	   
+		else 
+		{ 
+				$personne_id = $_GET["id"];
 	    }
+
     	?>
 	
 	<div id="top_head">
@@ -103,13 +107,14 @@
 
             <div id = "contact">
             	<h2>Relation</h2>
+            	 
     			<?php	
     			$relationPersonne = $appliDB->getRelationPersonne($personne_id);
                 foreach ($relationPersonne  as  $relation) {
 	                echo "<div class=listeContactsRelation >";
 					echo "	<img class=imageContact src=$relation->URL_Photo> ";
-						echo "<p>";
-							echo $relation->Prenom . '  ' . $relation->Nom;
+					echo "<p>";
+					echo $relation->Prenom . '  ' . $relation->Nom;
 					echo "	</p>"; 
 					echo "	<p>";
 					echo $relation->Statut_couple;
@@ -117,36 +122,12 @@
 					echo "	<p>";
 					echo $relation->Type;
 					echo "	</p>";
+					echo "	</div>";
 		 		}
-				echo "	</div>";
+			
 				?>
 			 
             </div>
 
-
-		
-		
-
-		
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</body>
+	</body>
 </html>

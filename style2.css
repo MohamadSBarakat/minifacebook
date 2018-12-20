@@ -6,14 +6,14 @@ body{
 
 #top_head{
 
-	background-color: #70a9a9;
-	height:60px;
+	background-color: #9ea2a8;
+	height:50px;
 
 
 }
 .droite{
 	float:right;
-	height:40px;
+	height:30px;
 	width:150px;
 	line-height: 35px;
 	border-radius:100px;
@@ -34,8 +34,9 @@ body{
 	color:Black;
 	background-color: #d5e7e7;
 	margin:0 auto;
-	margin-top:10px;
-	border: 1px solid grey;
+	margin-top:7px;
+	border: 2px solid grey;
+	border-radius:3%;
 }
 h1{
 	text-align: center;
@@ -70,6 +71,7 @@ table{
 	width:70%;
 	background-color:#efdeee; 
 	border: 2px solid grey;
+	  
 
 }
 .Contacts p{
@@ -128,6 +130,7 @@ table{
   /*  margin-top: 30px; */	
    color: Black;
    
+   
   }
 #profil-data p{
 	font-size:25px;
@@ -158,7 +161,7 @@ table{
 
 #musique {
   /*  background-color: yellow; */
-  
+  	background-color:#f4f6f7;
     border-style: solid;
     border-width: 2px;
 }
@@ -173,12 +176,13 @@ table{
     text-align:center;
 }
 
-#hoppies {
-    /*  background-color: yellow; */
+ /*#hoppies {
+    /*  background-color: yellow; *
     
       border-style: solid;
       border-width: 2px;
   }
+  */
   #contenu_hobbies{
     width: 32%;
     float: right;
@@ -191,7 +195,7 @@ table{
   }
 
 #hoppies {
-   
+    background-color:#f4f6f7;
     border-style: solid;
     border-width: 2px;
 }
@@ -213,23 +217,24 @@ table{
 }
 .listeContactsRelation{
 	margin:0 auto;
-	font-size: 15px;
+	font-size: 18px;
 	
-	background-color:#396060; 
+	background-color:#f4f6f7; 
 	padding:5px;
 	margin-top: 15px;
 	margin-bottom:0px;
 	border: 1px solid grey;
+	border-radius:3%;
 }
 
 .listeContactsRelation:hover{
 	box-shadow: 0px 0px 5px black;
-	background-color:#2F4F4F;
+	background-color:#d3dee5;
 }
 .listeContactsRelation p{
 	margin-top:20px;
 	text-align: right;
-	color:white;
+	color:Black;
 }
 .listeContactsRelation .imageContact{
 	width:100px;
@@ -243,12 +248,12 @@ table{
 	font-size:25px;
 }
 #hoppies li{
-	font-size:25px;
+	font-size:22px;
 }
 
 div.relation_Scroll{
 	width: 760px;
-    height: 380px;
+    height: 580px;
 	overflow: Scroll;
 }
 
