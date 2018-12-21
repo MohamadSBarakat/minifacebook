@@ -17,9 +17,8 @@
 		<?php
 		if ($_POST)
 		{
-  	    		    	inscription();
-			/*
-  	    	$hobbysId=$_POST['hobbies'];
+  	    		    	 
+	    	$hobbysId=$_POST['hobbies'];
     		$musiquesId=$_POST['musiques'];
     		$relationType=$_POST['relation'];
  
@@ -44,7 +43,7 @@
       			{
       				$appliDB->insertPersonneRelation($personne_id,$relation_id,$rt);
       			}  
-   	   	    } */
+   	   	    } 
 		} 
 		else 
 		{ 
@@ -111,6 +110,7 @@
     			<?php	
     			$relationPersonne = $appliDB->getRelationPersonne($personne_id);
                 foreach ($relationPersonne  as  $relation) {
+                //	echo "<a href=annuaireProfil.php?id=$_GET["id"]>";
 	                echo "<div class=listeContactsRelation >";
 					echo "	<img class=imageContact src=$relation->URL_Photo> ";
 					echo "<p>";
@@ -123,6 +123,7 @@
 					echo $relation->Type;
 					echo "	</p>";
 					echo "	</div>";
+				//	echo "</a>";
 		 		}
 			
 				?>

@@ -9,12 +9,10 @@
 	 <title>Annuaire - Ajouter un contact</title>
 	 <?php  require('config.php'); ?> 
 	 <?php  $appliDB = new Connexion(); ?> 
-
   
 </head>
 
 <body>
-
 		 
 	<!-- barre continu en-tête avec les liens -->
 	<div id="top_head">
@@ -103,9 +101,8 @@
 			<?php
 			$AllPersonnes    = $appliDB->selectAllPersonnes(); 													
       		foreach ($AllPersonnes  as  $personnes) {
-					
-			  	echo	"<div class=Contacts>"; 
-				echo		"<img class=imageContact src=$personnes->URL_Photo>"; 
+    		  	echo	    "<div class=listeContactsRelation>"; 
+		  		echo		"<img class=imageContact src=$personnes->URL_Photo>"; 
 				echo		"<p>" . $personnes->Prenom . '  ' . $personnes->Nom	. "</p>"; 
 			    echo		"<p>";
 				echo		"<select name=\"relation[$personnes->ID]\">";
@@ -123,51 +120,7 @@
 			
 			?>
 		 	</div> 
-			 
-			 			
-
-  <!--
- 		< ?php $id = 12;
-                  
-        if(isset($_POST['submit'])){
-		 	if(!empty($_POST['hobbies'])) {			 
-            foreach($_POST['hobbies'] as $selected) {
-		 		echo "<p>".$selected ."</p>";
-            	$hobbyId =  $appliDB->getHobbyId($selected);       
-            	$hID     = $hobbyId->ID;
-            	$appliDB->insertPersonneHobbies($id, $hID);
-					
-				}	 
-            }
-		 	
-        if(!empty($_POST['musiques'])) {			 
-            foreach($_POST['musiques'] as $selected) {
-		 		echo "<p>".$selected ."</p>";
-            	$musiqueId =  $appliDB->getMusiqueId($selected);       
-            	$mID     = $musiqueId->ID;
-            	$appliDB->insertPersonneMusiques($id, $mID);
-					
-				}	 
-            }
-		 
-         if(!empty($_POST['relation'])) {  
-         $relationType=$_POST['relation'];  
-         foreach($relationType as $relation_Id => $rt) {
-		 		             	 
-		 		if ($rt !== ' ')
-		 		{
-              	$appliDB->insertPersonneRelation($id, $relation_Id, $rt);
-              	echo "<p>".$relation_Id .  $rt ."</p>";
-              	} 
-}
-        }
-
-    }
-    	?>
-         
--->
-
-
+	
 		</form>
 
 	</div>

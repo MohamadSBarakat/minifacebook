@@ -78,7 +78,7 @@ table{
 	margin-left:10px;
 	text-align: center;
 	color:Black;
-	padding:1px;
+	padding:5px;
 
 
 }
@@ -214,6 +214,7 @@ table{
 }
 #contact h2{
 	text-align:center;
+
 }
 .listeContactsRelation{
 	margin:0 auto;
@@ -233,7 +234,7 @@ table{
 }
 .listeContactsRelation p{
 	margin-top:20px;
-	text-align: right;
+	text-align: center;
 	color:Black;
 }
 .listeContactsRelation .imageContact{
@@ -244,6 +245,12 @@ table{
 	margin-top:5px;
 	margin-left:8px;
 }
+
+.listeContacts p{
+	text-align:center;
+	font-size: 22px;
+
+}
 #musique li{
 	font-size:25px;
 }
@@ -252,9 +259,11 @@ table{
 }
 
 div.relation_Scroll{
-	width: 760px;
-    height: 580px;
+	margin:0 auto;
+	width: 600px;
+    height: 600px;
 	overflow: Scroll;
+
 }
 
 .formulaireRecherche {

@@ -36,7 +36,7 @@
 			if (!($_GET)) {
 				$AllPersonnes = $appliDB->selectAllPersonnes(); 													
       			foreach ($AllPersonnes  as  $personnes) {
-				echo	"<div>";			
+			//	echo	"<div>";			
 				echo	"<a href=annuaireProfil.php?id=$personnes->ID>";
 				echo	"<div class=listeContacts>"; 
 				echo		"<img class=\"imageContact\" src=\"$personnes->URL_Photo\">"; 
@@ -46,14 +46,14 @@
 				echo		"</p>";
 				echo	"</div>"; 
 	        }		
-				echo	"</div>"; 
+		//		echo	"</div>"; 
 				echo	"</a>";
 	   	        }  	
 
 			elseif(isset($_GET)) {
 				$resultatP = $appliDB->selectPersonneByNomPrenomLike($_GET["cherchNom"]);
 				foreach ($resultatP  as  $personnes) {
-		      	echo	"<div>";			
+		    	echo	"<div>";			
 				echo	"<a href=annuaireProfil.php?id=$personnes->ID>";
 				echo	"<div class=listeContacts>"; 
 				echo		"<img class=\"imageContact\" src=\"$personnes->URL_Photo\">"; 
@@ -63,7 +63,7 @@
 				echo		"</p>";
 				echo	"</div>"; 
 	        }		
-	   			echo	"</div>"; 
+	   	  		echo	"</div>"; 
 				echo	"</a>";		
 			}  
 			?>
